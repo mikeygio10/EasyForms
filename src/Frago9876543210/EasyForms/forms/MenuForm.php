@@ -7,6 +7,7 @@ namespace Frago9876543210\EasyForms\forms;
 use Closure;
 use Frago9876543210\EasyForms\elements\Button;
 use pocketmine\{form\FormValidationException, player\Player, utils\Utils};
+use function array_map;
 use function array_merge;
 use function is_string;
 
@@ -51,9 +52,6 @@ class MenuForm extends Form{
 	 * @return self
 	 */
 	public function append(...$buttons) : self{
-		if(isset($buttons[0]) && is_string($buttons[0])){
-			$buttons = Button::createFromList(...$buttons);
-		}
 		$this->buttons = array_merge($this->buttons, $buttons);
 		return $this;
 	}
@@ -95,8 +93,14 @@ class MenuForm extends Form{
 	 * @return array
 	 */
 	protected function serializeFormData() : array{
+		$buttons = $this->buttons;
+		if(isset($buttons[0]) && is_string($buttons[0])){
+			$buttons = array_map(function(string $button) : array{
+				return ["text" => $button];
+			}, $buttons);
+		}
 		return [
-			"buttons" => $this->buttons,
+			"buttons" => $buttons,
 			"content" => $this->text
 		];
 	}

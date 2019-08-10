@@ -20,19 +20,6 @@ class Button extends Element{
 	}
 
 	/**
-	 * @param string ...$texts
-	 *
-	 * @return Button[]
-	 */
-	public static function createFromList(string ...$texts) : array{
-		$buttons = [];
-		foreach($texts as $text){
-			$buttons[] = new self($text);
-		}
-		return $buttons;
-	}
-
-	/**
 	 * @return string|null
 	 */
 	public function getType() : ?string{
