@@ -12,7 +12,7 @@ use function array_merge;
 use function is_string;
 
 class MenuForm extends Form{
-	/** @var Button[] */
+	/** @var Button[]|string[] */
 	protected $buttons = [];
 	/** @var string */
 	protected $text;
