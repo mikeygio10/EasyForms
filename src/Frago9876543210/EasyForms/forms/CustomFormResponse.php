@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frago9876543210\EasyForms\forms;
 
 use Frago9876543210\EasyForms\elements\{Dropdown, Element, Input, Label, Slider, StepSlider, Toggle};
+use Generator;
 use pocketmine\form\FormValidationException;
 use function array_shift;
 use function get_class;
@@ -79,16 +80,14 @@ class CustomFormResponse{
 	}
 
 	/**
-	 * @return mixed[]
+	 * @return Generator
 	 */
-	public function getValues() : array{
-		$values = [];
+	public function getValues() : Generator{
 		foreach($this->elements as $element){
 			if($element instanceof Label){
 				continue;
 			}
-			$values[] = $element instanceof Dropdown ? $element->getSelectedOption() : $element->getValue();
+			yield $element instanceof Dropdown ? $element->getSelectedOption() : $element->getValue();
 		}
-		return $values;
 	}
 }
